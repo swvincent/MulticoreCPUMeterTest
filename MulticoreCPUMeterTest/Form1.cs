@@ -158,6 +158,15 @@ namespace MulticoreCPUMeterTest
             //Update overall CPU and most active
             cpuTextBox.Text = Math.Round(cpuPerfCounter.NextValue(), MidpointRounding.AwayFromZero).ToString();
             mostActiveCoreTextBox.Text = (mostActiveCore + 1).ToString();
+
+            //Reset row colors
+            foreach (DataGridViewRow r in coresGridView.Rows)
+            {
+                r.DefaultCellStyle.BackColor = Color.White;
+            }
+
+            //Highlight most active row
+            coresGridView.Rows[mostActiveCore].DefaultCellStyle.BackColor = Color.Yellow;
         }
     }
 }
