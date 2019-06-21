@@ -11,7 +11,7 @@ using System.Diagnostics;           // Performance counters
 
 namespace MulticoreCPUMeterTest
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private PerformanceCounter cpuPerfCounter;                      // Overall CPU stat
         private PerformanceCounter[] corePerfCounter;                   // Individual logical core stats
@@ -24,7 +24,7 @@ namespace MulticoreCPUMeterTest
         private const int SAMPLE_SIZE = 20;                             // Number of samples to use in calculating averages
         private const int RESET_SAMPLE_COUNT = 1;                       // Reset most active core after this many samples collected
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
