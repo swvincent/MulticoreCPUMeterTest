@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.meterTimer = new System.Windows.Forms.Timer(this.components);
             this.cpuTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -42,7 +42,7 @@
             this.coreColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastReadingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avgReadingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avgReading2Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spreadColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.coresGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,28 +118,28 @@
             this.coresGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.coresGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.coresGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.coresGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.coresGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coreColumn,
             this.lastReadingColumn,
             this.avgReadingColumn,
-            this.avgReading2Column});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.coresGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.spreadColumn});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.coresGridView.DefaultCellStyle = dataGridViewCellStyle4;
             this.coresGridView.Location = new System.Drawing.Point(12, 140);
             this.coresGridView.Name = "coresGridView";
             this.coresGridView.ReadOnly = true;
@@ -167,14 +167,14 @@
             this.avgReadingColumn.Name = "avgReadingColumn";
             this.avgReadingColumn.ReadOnly = true;
             // 
-            // avgReading2Column
+            // spreadColumn
             // 
-            this.avgReading2Column.HeaderText = "Avg2";
-            this.avgReading2Column.MinimumWidth = 100;
-            this.avgReading2Column.Name = "avgReading2Column";
-            this.avgReading2Column.ReadOnly = true;
+            this.spreadColumn.HeaderText = "Spread";
+            this.spreadColumn.MinimumWidth = 100;
+            this.spreadColumn.Name = "spreadColumn";
+            this.spreadColumn.ReadOnly = true;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -187,9 +187,9 @@
             this.Controls.Add(this.cpuTextBox);
             this.Controls.Add(this.label9);
             this.MinimumSize = new System.Drawing.Size(416, 461);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Multicore CPU Meter Test app";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.coresGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -209,7 +209,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn coreColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastReadingColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgReadingColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn avgReading2Column;
+        private System.Windows.Forms.DataGridViewTextBoxColumn spreadColumn;
     }
 }
 

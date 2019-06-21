@@ -59,5 +59,10 @@ namespace MulticoreCPUMeterTest
         {
             return Stats.Max() - Stats.Min();
         }
+
+        public float Peek()
+        {
+            return Stats.Peek();
+        }
     }
 }
