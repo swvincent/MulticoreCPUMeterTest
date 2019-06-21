@@ -42,6 +42,7 @@
             this.coreColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastReadingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avgReadingColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avgReading2Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.coresGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,7 +130,8 @@
             this.coresGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.coreColumn,
             this.lastReadingColumn,
-            this.avgReadingColumn});
+            this.avgReadingColumn,
+            this.avgReading2Column});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -141,7 +143,7 @@
             this.coresGridView.Location = new System.Drawing.Point(12, 140);
             this.coresGridView.Name = "coresGridView";
             this.coresGridView.ReadOnly = true;
-            this.coresGridView.Size = new System.Drawing.Size(372, 268);
+            this.coresGridView.Size = new System.Drawing.Size(474, 268);
             this.coresGridView.TabIndex = 32;
             // 
             // coreColumn
@@ -165,11 +167,18 @@
             this.avgReadingColumn.Name = "avgReadingColumn";
             this.avgReadingColumn.ReadOnly = true;
             // 
+            // avgReading2Column
+            // 
+            this.avgReading2Column.HeaderText = "Avg2";
+            this.avgReading2Column.MinimumWidth = 100;
+            this.avgReading2Column.Name = "avgReading2Column";
+            this.avgReading2Column.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 423);
+            this.ClientSize = new System.Drawing.Size(502, 423);
             this.Controls.Add(this.coresGridView);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.mostActiveCoreTextBox);
@@ -200,6 +209,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn coreColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastReadingColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn avgReadingColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn avgReading2Column;
     }
 }
 

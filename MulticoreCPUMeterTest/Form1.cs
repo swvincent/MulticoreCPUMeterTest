@@ -6,22 +6,23 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;           //Performance counters
+using System.Diagnostics;           // Performance counters
 //using System.Management;
 
 namespace MulticoreCPUMeterTest
 {
     public partial class Form1 : Form
     {
-        private PerformanceCounter cpuPerfCounter;                      //Ovall CPU stat
-        private PerformanceCounter[] corePerfCounter;                   //Individual logical core stats
-        private MovingAverageCalculator[] coreAvgCalcs;                 //Used to calc moving averages
-        private int coreCount;                                          //Number of cores
-        private int sampleCounter;                                      //Count of sample since last determined most active core
-        private int mostActiveCore;                                     //Index of most active core
+        private PerformanceCounter cpuPerfCounter;                      // Overall CPU stat
+        private PerformanceCounter[] corePerfCounter;                   // Individual logical core stats
+        private MovingAverageCalculator[] coreAvgCalcs;                 // Used to calc moving averages
+        private FifoStats[] fifoStats;
+        private int coreCount;                                          // Number of cores
+        private int sampleCounter;                                      // Count of sample since last determined most active core
+        private int mostActiveCore;                                     // Index of most active core
 
-        private const int SAMPLE_SIZE = 60;                             //Number of samples to use in calculating averages
-        private const int RESET_SAMPLE_COUNT = 20;                      //Reset most active core after this many samples collected
+        private const int SAMPLE_SIZE = 20;                             // Number of samples to use in calculating averages
+        private const int RESET_SAMPLE_COUNT = 1;                       // Reset most active core after this many samples collected
 
         public Form1()
         {
@@ -56,6 +57,7 @@ namespace MulticoreCPUMeterTest
                 coreCount = Environment.ProcessorCount;
                 corePerfCounter = new PerformanceCounter[coreCount];
                 coreAvgCalcs = new MovingAverageCalculator[coreCount];
+                fifoStats = new FifoStats[coreCount];
 
                 procCountTextBox.Text = coreCount.ToString();
 
@@ -64,6 +66,7 @@ namespace MulticoreCPUMeterTest
                 {
                     corePerfCounter[i] = new PerformanceCounter("Processor", "% Processor Time", i.ToString());
                     coreAvgCalcs[i] = new MovingAverageCalculator(SAMPLE_SIZE);
+                    fifoStats[i] = new FifoStats(SAMPLE_SIZE);
                     coresGridView.Rows.Add("Core " + (i+1).ToString());
                 }
 
@@ -128,44 +131,50 @@ namespace MulticoreCPUMeterTest
         {
             float[] lastCorePercs = new float[coreCount];
             float[] coreAvgs = new float[coreCount];
+            float[] coreAvgs2 = new float[coreCount];
 
-            //Get new stats and update averages
+            // Get new stats and update averages
             for (int i = 0; i < coreCount; i++)
             {
                 lastCorePercs[i] = corePerfCounter[i].NextValue();
                 coreAvgs[i] = coreAvgCalcs[i].NextValue(lastCorePercs[i]);
+                fifoStats[i].Enqueue(lastCorePercs[i]);
+                coreAvgs2[i] = fifoStats[i].Average();
                 
                 //Update form
                 coresGridView.Rows[i].Cells["lastReadingColumn"].Value =
                     Math.Round(lastCorePercs[i], MidpointRounding.AwayFromZero).ToString();
                 coresGridView.Rows[i].Cells["avgReadingColumn"].Value =
                     Math.Round(coreAvgs[i], 2, MidpointRounding.AwayFromZero).ToString();
+                coresGridView.Rows[i].Cells["avgReading2Column"].Value =
+                    Math.Round(coreAvgs2[i], 2, MidpointRounding.AwayFromZero).ToString();
             }
 
             sampleCounter++;
 
-            //Every time we've collected a full round of stats,
-            //redetermine which core is most active
+            // Every time we've collected a full round of stats,
+            // redetermine which core is most active
             if (sampleCounter > RESET_SAMPLE_COUNT)
             {
                 //Helpful: https://stackoverflow.com/a/13755053
                 float maxValue = coreAvgs.Max();
                 mostActiveCore = coreAvgs.ToList().IndexOf(maxValue);
 
+
                 sampleCounter = 1;
             }
 
-            //Update overall CPU and most active
+            // Update overall CPU and most active
             cpuTextBox.Text = Math.Round(cpuPerfCounter.NextValue(), MidpointRounding.AwayFromZero).ToString();
             mostActiveCoreTextBox.Text = (mostActiveCore + 1).ToString();
 
-            //Reset row colors
+            // Reset row colors
             foreach (DataGridViewRow r in coresGridView.Rows)
             {
                 r.DefaultCellStyle.BackColor = Color.White;
             }
 
-            //Highlight most active row
+            // Highlight most active row
             coresGridView.Rows[mostActiveCore].DefaultCellStyle.BackColor = Color.Yellow;
         }
     }
